@@ -5,7 +5,7 @@ in the paper,
 
 David J. Warne, Ruth E. Baker, Matthew J. Simpson.
 Rapid Bayesian inference for expensive stochastic models. 2019.
-Pre-print available ArXiv (TBA).
+Pre-print available on ArXiv [Link TBA](TBA).
 
 ## Developer
 David J. Warne (david.warne@qut.edu.au), School of Mathematical Sciences, Science and Engineering Faculty, Queensland University of Technology.
