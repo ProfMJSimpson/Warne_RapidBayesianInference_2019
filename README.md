@@ -1,4 +1,4 @@
-# Code for Rapid Bayesian inference using precoditioning and Moment-Matching
+# Code for Rapid Bayesian inference using preconditioning and Moment-Matching
 
 This repository contains research code used to demonstrate the algorithms described
 in the paper,
