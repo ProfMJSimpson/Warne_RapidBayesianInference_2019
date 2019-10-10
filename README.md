@@ -1,11 +1,11 @@
-# Code for Rapid Bayesian inference using preconditioning and Moment-Matching
+# Code for rapid Bayesian inference using preconditioning and moment-matching
 
 This repository contains research code used to demonstrate the algorithms described
 in the paper,
 
 David J. Warne, Ruth E. Baker, Matthew J. Simpson.
 Rapid Bayesian inference for expensive stochastic models. 2019.
-Pre-print available on ArXiv [Link TBA](TBA).
+Pre-print available on ArXiv [arXiv:1909.06540 [stat.CO]](https://arxiv.org/abs/1909.06540).
 
 ## Developer
 David J. Warne (david.warne@qut.edu.au), School of Mathematical Sciences, Science and Engineering Faculty, Queensland University of Technology.
