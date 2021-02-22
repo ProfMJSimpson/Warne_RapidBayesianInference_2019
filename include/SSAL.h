@@ -143,4 +143,10 @@ dalrws(int, int *, void (*)(int, int *, int, int *,int *), int, int,
        double (*)(double, double *), double (*)(double, double*), 
        int, int * restrict, double, double *);
 
+/* Euler-Maruyama scheme for SDEs */
+int
+daems(int,int, int , double * restrict, double * restrict, 
+      double * restrict, void (*)(double *, unsigned int, double *, unsigned int, double,double*), 
+      void (*)(double*,unsigned int, double *, unsigned int, double,double*),
+      int, int *restrict, double, double *restrict);
 #endif /*__SSAL_H_ */

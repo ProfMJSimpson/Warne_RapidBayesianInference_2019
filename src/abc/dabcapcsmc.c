@@ -177,7 +177,32 @@ dabcapcsmc(ABC_Parameters aabc_p, ABC_Parameters abc_p, SMC_Parameters smc_p, in
             }
             W_sum = (double)aabc_p.nacc;
         }
+#if defined(__CHECKPOINT__)
+        {
+            /*for long running simulations*/
+            /* particle,eps,theta1,...,thetaN,rho?,weights,SEC,N,NASIMS,NSIMS */
+            FILE *fp;
+            double time;
+            fp = fopen(CHECKPOINT_FILENAME,"a");
+            stamp_t = clock();
+            time = ((double)(stamp_t - start_t))/((double)CLOCKS_PER_SEC);
+            /*output particles*/
+            for (i=0;i<aabc_p.nacc;i++)
+            {
+                fprintf(fp,"%d,%lg",i,smc_p.eps_t[t]);
+                for (j=0;j<abc_p.k;j++)
+                {
+                    fprintf(fp,",%lg",theta[i*abc_p.k + j]);
+                }
+                if (rho != NULL)
+                    fprintf(fp,",%lg",rho[i]);
+                fprintf(fp,",%lg,%lg,%d,%d,%d\n",weights[i],time,abc_p.nacc,approx_sim_counter,sim_counter);
+            }
+            fclose(fp);
+        }
+#endif 
 
+        smc_p.adpt(abc_p.nacc,abc_p.k,theta_prev,weights_prev,smc_p.q_params);
         /* importance resampling with exact model*/
         for (i=0;i<abc_p.nacc;i++)
         {
@@ -187,9 +212,11 @@ dabcapcsmc(ABC_Parameters aabc_p, ABC_Parameters abc_p, SMC_Parameters smc_p, in
             {
                 /*sample a particle by weight from {theta_t-1,W_t-1} */
                 j = durngpmfs(abc_p.nacc,weights_prev,W_sum_prev);
-                /*perturb particle using transition kernel*/
-                (*(smc_p.q))(abc_p.k,theta_prev+j*abc_p.k,
-                                          theta + i*abc_p.k);
+                /*perturb particle using transition kernel*/ /** @todo test with other examples*/
+                //(*(smc_p.q))(abc_p.k,theta_prev+j*abc_p.k,
+                //                          theta + i*abc_p.k);
+                (*(smc_p.q_adpt))(abc_p.k,theta_prev+j*abc_p.k,
+                                           theta + i*abc_p.k,smc_p.q_params);
                 /*simulate data with exact model*/
                 (*(abc_p.s))(abc_p.sim,theta +i*abc_p.k,data_s);
                 /*compute discrepency metric*/
